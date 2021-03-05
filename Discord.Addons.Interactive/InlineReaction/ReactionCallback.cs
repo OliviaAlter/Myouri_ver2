@@ -1,25 +1,25 @@
 ﻿// The foundation of this code came from PassiveModding's fork of the original repo
 // https://github.com/PassiveModding/Discord.Addons.Interactive
 
-using Discord.Commands;
-using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
 
-namespace Discord.Addons.Interactive.InlineReaction
+namespace DiscordBot.Discord.Addons.Interactive.InlineReaction
 {
     public class ReactionCallbackData
     {
         private ICollection<ReactionCallbackItem> _items;
 
-        public ReactionCallbackData(string text, Embed embed = null, bool expiresAfterUse = true, bool singleUsePerUser = true, TimeSpan? timeout = null, Func<SocketCommandContext, Task> timeoutCallback = null)
+        public ReactionCallbackData(string text, Embed embed = null, bool expiresAfterUse = true,
+            bool singleUsePerUser = true, TimeSpan? timeout = null,
+            Func<SocketCommandContext, Task> timeoutCallback = null)
         {
-            if (text == null && embed == null)
-            {
-                throw new Exception("Inline reaction must have message data");
-            }
+            if (text == null && embed == null) throw new Exception("Inline reaction must have message data");
 
             SingleUsePerUser = singleUsePerUser;
             ExpiresAfterUse = expiresAfterUse;
@@ -40,29 +40,30 @@ namespace Discord.Addons.Interactive.InlineReaction
         public TimeSpan? Timeout { get; }
         public Func<SocketCommandContext, Task> TimeoutCallback { get; }
 
-        public ReactionCallbackData AddCallbacks(IEnumerable<(IEmote, Func<SocketCommandContext, SocketReaction, Task>)> callbacks)
+        public ReactionCallbackData AddCallbacks(
+            IEnumerable<(IEmote, Func<SocketCommandContext, SocketReaction, Task>)> callbacks)
         {
-            foreach (var (emote, item2) in callbacks)
-            {
-                _items.Add(new ReactionCallbackItem(emote, item2));
-            }
+            foreach (var (emote, item2) in callbacks) _items.Add(new ReactionCallbackItem(emote, item2));
 
             return this;
         }
 
-        public ReactionCallbackData SetCallbacks(IEnumerable<(IEmote, Func<SocketCommandContext, SocketReaction, Task>)> callbacks)
+        public ReactionCallbackData SetCallbacks(
+            IEnumerable<(IEmote, Func<SocketCommandContext, SocketReaction, Task>)> callbacks)
         {
             _items = callbacks.Select(x => new ReactionCallbackItem(x.Item1, x.Item2)).ToList();
             return this;
         }
 
-        public ReactionCallbackData AddCallBack(IEmote reaction, Func<SocketCommandContext, SocketReaction, Task> callback)
+        public ReactionCallbackData AddCallBack(IEmote reaction,
+            Func<SocketCommandContext, SocketReaction, Task> callback)
         {
             _items.Add(new ReactionCallbackItem(reaction, callback));
             return this;
         }
 
-        public ReactionCallbackData WithCallback(IEmote reaction, Func<SocketCommandContext, SocketReaction, Task> callback)
+        public ReactionCallbackData WithCallback(IEmote reaction,
+            Func<SocketCommandContext, SocketReaction, Task> callback)
         {
             var item = new ReactionCallbackItem(reaction, callback);
             _items.Add(item);

@@ -1,9 +1,9 @@
-﻿using Discord.Addons.Interactive.Criteria;
+﻿using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
-using System.Threading.Tasks;
+using DiscordBot.Discord.Addons.Interactive.Criteria;
 
-namespace Discord.Addons.Interactive.Paginator
+namespace DiscordBot.Discord.Addons.Interactive.Paginator
 {
     internal class EnsureIsIntegerCriterion : ICriterion<SocketMessage>
     {

@@ -1,11 +1,13 @@
-﻿using Discord.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Discord.Commands;
 
-namespace Discord.Addons.Interactive.Criteria
+namespace DiscordBot.Discord.Addons.Interactive.Criteria
 {
     public class EmptyCriterion<T> : ICriterion<T>
     {
         public Task<bool> JudgeAsync(SocketCommandContext sourceContext, T parameter)
-            => Task.FromResult(true);
+        {
+            return Task.FromResult(true);
+        }
     }
 }

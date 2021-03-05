@@ -1,7 +1,8 @@
-﻿using Discord.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Discord;
+using Discord.Commands;
 
-namespace Discord.Addons.Interactive.Criteria
+namespace DiscordBot.Discord.Addons.Interactive.Criteria
 {
     public class EnsureSourceUserCriterion : ICriterion<IMessage>
     {

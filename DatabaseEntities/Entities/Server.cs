@@ -2,7 +2,7 @@
 {
     public class Server
     {
-        public ulong Id { get; set; }
+        public ulong ServerId { get; set; }
         public string Prefix { get; set; }
         public ulong MessageLogChannel { get; set; }
         public ulong EventLogChannel { get; set; }
@@ -15,5 +15,11 @@
         public bool InviteToggle { get; set; }
         public bool RoleMentionToggle { get; set; }
         public bool UserMentionToggle { get; set; }
+        public int warningAmount { get; set; }
+        public ulong baseVoiceChannelId { get; set; }
+        public string baseVoiceChannelName { get; set; }
+        public string baseTempVoiceChannelName { get; set; }
+        public ulong CategoryId { get; set; }
+
     }
 }

@@ -1,18 +1,12 @@
-﻿using Discord.Commands;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Discord.Commands;
 
-namespace Discord.Addons.Interactive.Criteria
+namespace DiscordBot.Discord.Addons.Interactive.Criteria
 {
     public class Criteria<T> : ICriterion<T>
     {
         private readonly List<ICriterion<T>> _criteria = new List<ICriterion<T>>();
-
-        public Criteria<T> AddCriterion(ICriterion<T> criterion)
-        {
-            _criteria.Add(criterion);
-            return this;
-        }
 
         public async Task<bool> JudgeAsync(SocketCommandContext sourceContext, T parameter)
         {
@@ -21,7 +15,14 @@ namespace Discord.Addons.Interactive.Criteria
                 var result = await criterion.JudgeAsync(sourceContext, parameter).ConfigureAwait(false);
                 if (!result) return false;
             }
+
             return true;
+        }
+
+        public Criteria<T> AddCriterion(ICriterion<T> criterion)
+        {
+            _criteria.Add(criterion);
+            return this;
         }
     }
 }

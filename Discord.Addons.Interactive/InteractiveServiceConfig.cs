@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Discord.Addons.Interactive
+namespace DiscordBot.Discord.Addons.Interactive
 {
     public class InteractiveServiceConfig
     {

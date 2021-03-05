@@ -1,10 +1,10 @@
-﻿using Discord.Addons.Interactive.Criteria;
+﻿using System;
+using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
-using System;
-using System.Threading.Tasks;
+using DiscordBot.Discord.Addons.Interactive.Criteria;
 
-namespace Discord.Addons.Interactive.Callbacks
+namespace DiscordBot.Discord.Addons.Interactive.Callbacks
 {
     public interface IReactionCallback
     {

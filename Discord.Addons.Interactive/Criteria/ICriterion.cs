@@ -1,7 +1,7 @@
-﻿using Discord.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Discord.Commands;
 
-namespace Discord.Addons.Interactive.Criteria
+namespace DiscordBot.Discord.Addons.Interactive.Criteria
 {
     public interface ICriterion<in T>
     {

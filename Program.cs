@@ -1,15 +1,17 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AnotherMyouri.DatabaseEntities.DiscordBotContext;
-using AnotherMyouri.DatabaseEntities.Entities;
+using AnotherMyouri.DatabaseEntities.EntitiesConfig;
 using AnotherMyouri.Handler;
+using AnotherMyouri.Helpers;
+using AnotherMyouri.Mischief;
+using AnotherMyouri.Modules;
 using Discord;
 using Discord.Addons.Hosting;
-using Discord.Addons.Interactive;
 using Discord.Commands;
 using Discord.WebSocket;
-using Microsoft.EntityFrameworkCore;
+using DiscordBot.Discord.Addons.Interactive;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -50,22 +52,32 @@ namespace AnotherMyouri
                 {
                     config.CaseSensitiveCommands = false;
                     config.LogLevel = LogSeverity.Warning;
-                    config.DefaultRunMode = RunMode.Async;
+                    config.DefaultRunMode = RunMode.Sync;
                     config.SeparatorChar = '|';
                 })
                 .ConfigureServices((context, services) =>
                 {
                     services
-                        .AddSingleton<CommandHandler>()
-
+                        .AddHostedService<CommandHandler>()
+                        .AddDbContext<MyouriDbContext>()
+                        
+                        /*
                         .AddDbContext<MyouriDbContext>
+                    
                         (
-                            options => options.UseSqlServer
+                            options => options.UseMySql
                             (
-                                context.Configuration["database"]
+                                context.Configuration["database"],
+                                new MySqlServerVersion(new Version(8, 0, 21))
                             )
                         )
-                        .AddSingleton<Server>()
+                        */
+                        
+                        .AddSingleton<EmbedBuilder>()
+                        .AddSingleton<HttpClient>()
+                        .AddSingleton<HttpClientService>()
+                        .AddScoped<Servers>()
+                        .AddSingleton<AutoVoiceChannels>()
                         .AddSingleton<InteractiveService>();
                 })
                 .UseConsoleLifetime();

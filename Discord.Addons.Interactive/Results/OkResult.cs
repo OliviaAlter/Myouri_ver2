@@ -1,6 +1,6 @@
 ﻿using Discord.Commands;
 
-namespace Discord.Addons.Interactive.Results
+namespace DiscordBot.Discord.Addons.Interactive.Results
 {
     public class OkResult : RuntimeResult
     {
